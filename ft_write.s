@@ -6,13 +6,14 @@ section .text
 
 _ft_write:
 	mov		rax, 0x2000004	; Mac systemcall table No.4 : write
-	syscall					; syscall의 write가 rax으로 return
-	jc		_err			; jump carry, carry flag가 1이 되면 jump
+	syscall
+	jc _err		;에러가 발생하면 carry flag =1, rax = error number
 	ret
 
 _err:
-	push	rax				; jump carry 된 rax의 메모리주소 값이 스택 메모리 저장
-	call	___error		; ___error(rdi, rsi, rdx)
-	pop		qword[rax]		; ___error의 return 값의 메모리 주소를 jump carry 메모리 주소로 변경
-	mov		rax, -0x1		; return (-1)
+	push rax ;jump carry 된 rax를 스택에 저장
+	call ___error;error를 호출하면 rax의 에러넘버를 보고 에러주소를 리턴.(rax = errno address)
+	pop rdx
+	mov [rax], rdx;rax가 가진 주소값에 rdx에 담긴 에러넘버를 넣어준다.
+	mov rax, -1;-1리턴
 	ret

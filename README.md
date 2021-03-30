@@ -83,3 +83,6 @@ rax - eax - ax - ah - al (Accumulator 기본 누산기)
 rbx - ebx - bx - bh - bl (Base 인덱싱된 주소 지정에 사용 가능해서 기본 레지스터라고 함)
 rcx - ecx - cx - ch - cl (Count 루프카운트를 저장)
 rdx - edx - dx - dh - dl (Data 입출력 작업에 사용/큰 값을 포함하는 곱셈 나눗셈 연산을 위해 DX,AX와 함께 사용)
+
+
+에러넘버처리:https://velog.io/@jehjong/Assembly-Language-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%BD%9C-%EC%97%90%EB%9F%AC%EC%B2%98%EB%A6%AC
