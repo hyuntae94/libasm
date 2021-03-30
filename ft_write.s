@@ -1,13 +1,12 @@
 ;ssize_t		ft_write(int fildes, const void *buf, size_t nbyte);
 
-
 section .text
 	global _ft_write
 	extern ___error
 
 _ft_write:
 	mov		rax, 0x2000004	; Mac systemcall table No.4 : write
-	syscall					; syscall의 write가 rax으로 return 됨
+	syscall					; syscall의 write가 rax으로 return
 	jc		_err			; jump carry, carry flag가 1이 되면 jump
 	ret
 
