@@ -1,29 +1,31 @@
-ASMSRC		= $(wildcard *.s)
-ASMOBJ		= $(ASMSRC:.s=.o)
+NAME	= libasm.a
 
-NAME		= libasm.a
-RM			= rm -rf
-LIB			= ar rc
-CC			= gcc
-CFLAGS		= -g -fsanitize=address
-NASM		= nasm
-NASMFLAGS	= -f macho64
+SRCS	= ft_strlen.s \
+		  ft_strcpy.s \
+		  ft_strcmp.s \
+		  ft_write.s \
+		  ft_strdup.s \
+		  ft_read.s \
 
-%.o	: %.s
-	$(NASM) $(NASMFLAGS) $<
+OBJS	= $(SRCS:.s=.o)
 
-all 	: $(NAME)
+TEST	= test
+
+%.o		: %.s
+	nasm -f macho64 $<
+
+all		: $(NAME)
+
+$(NAME)	: $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 clean	:
-		$(RM) $(ASMOBJ) *.out *.dSYM
+	rm -rf $(OBJS) *.out *.dSYM
 
 fclean	: clean
-		$(RM) $(NAME)
+	rm -rf $(NAME) $(TEST) *.txt
 
 re		: fclean all
 
-test	: all
-	$(CC) $(CFLAGS) test.c $(NAME)
-
-$(NAME): $(ASMOBJ)
-	$(LIB) $(NAME) $(ASMOBJ)
+test	: re
+	gcc test.c -o test -L. -lasm

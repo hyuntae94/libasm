@@ -8,7 +8,7 @@ section .text
 _ft_write:
 	mov		rax, 0x2000004	; Mac systemcall table No.4 : write
 	syscall					; syscall의 write가 rax으로 return 됨
-	jc		_err			; jump carry, carry flag가 1이 되면 jump하라
+	jc		_err			; jump carry, carry flag가 1이 되면 jump
 	ret
 
 _err:

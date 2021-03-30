@@ -1,77 +1,109 @@
-#include <stdio.h>
-#include <string.h>
 #include "libasm.h"
 
-int		main(void)
+void			test_strlen_strdup(void)
 {
-	char	arr_str1[100];
-	char	arr_str2[100];
-	char	arr_str3[100];
-	char	arr_str4[100];
-	char	arr_str5[100];
-	char	arr_str6[100];
-	char	arr_str7[100];
-	char	arr_str8[100];
-	char	*point_str1;
-	char	*point_str2;
-	int		ret1;
+	char		str[2048];
+	char		str2[2048];
 
-	printf("----- ft_read(1, arr_str1, 5) -----\n");
-	printf("return : %zd, str : %s\n", ft_read(0, arr_str1, 5), arr_str1);
+	printf(Y"====================\n");
+	printf("==    ft_strlen   ==\n");
+	printf("====================\n");
+	printf(G"<test>\n");
+	printf("input a string      ===> : ");
+	scanf("%s", str);
+	printf(R"<result>\n");
+	printf("   strlen : %lu\n", strlen(str));
+	printf("ft_strlen : %zu\n", ft_strlen(str));
 	getchar();
-	printf("----- read(1, arr_str2, 5) -----\n");
-	printf("return : %zd, str : %s\n", read(0, arr_str2, 5), arr_str2);
+	printf("\n\n\n"Y"====================\n");
+	printf("==    ft_strdup   ==\n");
+	printf("====================\n");
+	printf(G"<test>\n");
+	printf("input a string  ===> : ");
+	scanf("%s", str2);
+	printf(R"<result>\n");
+	printf("   strdup : %s\n", strdup(str2));
+	printf("ft_strdup : %s\n", ft_strdup(str2));
 	getchar();
-	printf("----- ft_read(-1, arr_str4, 5) -----\n");
-	printf("return : %zd, str : %s\n", ft_read(-1, arr_str4, 5), arr_str4);
-	printf("----- read(-1, arr_str4, 5) -----\n");
-	printf("return : %zd, str : %s\n", read(-1, arr_str4, 5), arr_str4);
-	printf("----------------------------------------\n");
-	printf("----- ft_strcmp(hello,hello)) -----\n");
-	if ((ft_strcmp("hello", "hello")))
-		printf("differnt!\n");
-	else
-		printf("same!\n");
-	printf("----- strcmp(hello,hello)) -----\n");
-	if ((ret1 = strcmp("hello", "hello")))
-		printf("differnt!\n");
-	else
-		printf("same!\n");
-	printf("----- ft_strcmp(hello,hell)) -----\n");
-	if ((ret1 = ft_strcmp("hello", "hell")))
-		printf("differnt!\n");
-	else
-		printf("same!\n");
-	printf("----- strcmp(hello,hell)) -----\n");
-	if ((ret1 = strcmp("hello", "hell")))
-		printf("differnt!\n");
-	else
-		printf("same!\n");
-	printf("----------------------------------------\n");
-	printf("----- ft_strcpy(arr_str5, hello) -----\n");
-	printf("return : %s, str : %s\n", ft_strcpy(arr_str5, "hello"), arr_str5);
-	printf("----- strcpy(arr_str6, hello) -----\n");
-	printf("return : %s, str : %s\n", strcpy(arr_str6, "hello"), arr_str6);
-	printf("----------------------------------------\n");
-	printf("----- ft_strdup(hello) -----\n");
-	printf("str : %s\n", point_str1 = ft_strdup("hello"));
-	printf("----- strdup(hello) -----\n");
-	printf("str : %s\n", point_str2 = strdup("hello"));
-	printf("----------------------------------------\n");
-	printf("----- ft_strlen(hello) -----\n");
-	printf("str : %ld\n", ft_strlen("hello"));
-	printf("----- strlen(hello) -----\n");
-	printf("str : %ld\n", strlen("hello"));
-	printf("----------------------------------------\n");
-	printf("----- ft_write(1, hello\\n, 6) -----\n");
-	ft_write(1, "hello\n", 6);
-	printf("----- write(1, hello\\n, 6) -----\n");
-	write(1, "hello\n", 6);
-	printf("----- ft_write(-1, hello\\n, 6) -----\n");
-	ft_write(-1, "hello\n", 6);
-	printf("----- write(-1, hello\\n, 6) -----\n");
-	write(-1, "hello\n", 6);
-	printf("----------------------------------------\n");
-	free(point_str1);
-	free(point_str2);
+}
+
+void			test_strcpy(void)
+{
+	char		s1[1024];
+	char		s2[1024];
+	char		*dest1;
+	char		*dest2;
+
+	printf("\n\n\n"Y"====================\n");
+	printf("==    ft_strcpy   ==\n");
+	printf("====================\n");
+	printf(G"<test>\n");
+	printf("input a string SRC  ===> : ");
+	scanf("%s", s1);
+	printf("input a string DEST ===> : ");
+	getchar();
+	scanf("%s", s2);
+	dest1 = strdup(s1);
+	dest2 = strdup(s2);
+	printf(R"<result>\n");
+	printf("   strcpy : %s\n", strcpy(s2, s1));
+	printf("ft_strcpy : %s\n", ft_strcpy(dest2, dest1));
+	getchar();
+}
+
+void			test_strcmp(void)
+{
+	char		str1[1024];
+	char		str2[1024];
+
+	printf("\n\n\n"Y"====================\n");
+	printf("==    ft_strcmp   ==\n");
+	printf("====================\n");
+	printf(G"<test>\n");
+	printf("input a string str1 ===> : ");
+	scanf("%s", str1);
+	getchar();
+	printf("input a string str2 ===> : ");
+	scanf("%s", str2);
+	printf(R"<result>\n");
+	printf("   strcmp : %d\n", strcmp(str1, str2));
+	printf("ft_strcmp : %d\n", ft_strcmp(str1, str2));
+	getchar();
+}
+
+void			test_write_read(void)
+{
+	int			fd;
+	int			ret;
+	char		buff[1024];
+
+	printf("\n\n\n"Y"====================\n");
+	printf("==ft_write & read==\n");
+	printf("====================\n");
+	printf(G"Enter the contents of the test.txt file \n"S);
+	fd = open("./test.txt", O_CREAT | O_TRUNC | O_RDWR, 777);
+	scanf("%[^\n]", buff);
+	getchar();
+	printf(G"\nCreating test.txt file using ft_write() function . . . (3s)\n");
+	sleep(3);
+	ft_write(fd, buff, ft_strlen(buff));
+	close(fd);
+	printf(R"test.txt file Creation Complete\n\n");
+	fd = open("./test.txt", O_RDONLY);
+	printf(G"Reading test.txt file using ft_read() function . . . (3s)\n");
+	ret = ft_read(fd, buff, ft_strlen(buff));
+	buff[ret] = '\0';
+	sleep(3);
+	printf(R"File read completion\n");
+	printf("\ntest.txt is \n%s", buff);
+	close(fd);
+}
+
+int				main(void)
+{
+	test_strlen_strdup();
+	test_strcpy();
+	test_strcmp();
+	test_write_read();
+	return (0);
 }
